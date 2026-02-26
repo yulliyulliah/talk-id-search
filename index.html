@@ -2071,18 +2071,25 @@
         const bizList = rawBiz.trim().split(/\s+/);
         const idList = rawId.trim().split(/\s+/);
 
-        function searchId() {
-            const inputVal = document.getElementById('bizInput').value.trim();
-            const resultDiv = document.getElementById('result');
+function searchId() {
+    const inputVal = document.getElementById('bizInput').value.trim();
+    const resultDiv = document.getElementById('result');
 
-            if(!inputVal) {
-                resultDiv.innerHTML = `<span style="color:#ff4d4f;">사업자번호를 입력해주세요.</span>`;
-                return;
-            }
+    if(!inputVal) {
+        resultDiv.innerHTML = `<span style="color:#ff4d4f;">사업자번호를 입력해주세요.</span>`;
+        return;
+    }
 
-            // 입력한 사업자번호가 1017개 중 몇 번째에 있는지 찾습니다.
-            const index = bizList.indexOf(inputVal);
+    const index = bizList.indexOf(inputVal);
 
-            if (index !== -1 && idList[index]) {
-                resultDiv.innerHTML = `조회된 톡채널 ID: <br><span style="font-size: 24px; color: #1890ff
-
+    if (index !== -1 && idList[index]) {
+        resultDiv.innerHTML = `
+            조회된 톡채널 ID:<br>
+            <span style="font-size:24px; color:#1890ff;">
+                ${idList[index]}
+            </span>
+        `;
+    } else {
+        resultDiv.innerHTML = `<span style="color:#ff4d4f;">등록되지 않은 사업자번호입니다.</span>`;
+    }
+}
