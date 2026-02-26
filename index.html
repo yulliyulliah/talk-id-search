@@ -2072,15 +2072,21 @@
         const idList = rawId.trim().split(/\s+/);
 
 function searchId() {
-    const inputVal = document.getElementById('bizInput').value.trim();
+    const rawInput = document.getElementById('bizInput').value.trim();
     const resultDiv = document.getElementById('result');
 
-    if(!inputVal) {
+    if (!rawInput) {
         resultDiv.innerHTML = `<span style="color:#ff4d4f;">사업자번호를 입력해주세요.</span>`;
         return;
     }
 
-    const index = bizList.indexOf(inputVal);
+    // 입력값 숫자만 추출
+    const cleanInput = rawInput.replace(/[^0-9]/g, "");
+
+    // bizList도 숫자만 비교하도록 변환
+    const cleanedBizList = bizList.map(biz => biz.replace(/[^0-9]/g, ""));
+
+    const index = cleanedBizList.indexOf(cleanInput);
 
     if (index !== -1 && idList[index]) {
         resultDiv.innerHTML = `
