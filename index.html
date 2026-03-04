@@ -2028,41 +2028,40 @@ const rawId = `
 434427733
 `;
 
-// 숫자만 남겨서 Map 구조로 저장 (가장 빠르고 안전)
+// 
 const bizMap = {};
 
-rawBiz.trim().split(/\s+/).forEach((biz, i) => {
-    const cleanBiz = biz.replace(/[^0-9]/g, "");
-    const cleanId = rawId.trim().split(/\s+/)[i];
+const bizList = rawBiz.trim().split(/\s+/);
+const idList = rawId.trim().split(/\s+/);
 
-    if (cleanBiz && cleanId) {
-        bizMap[cleanBiz] = cleanId;
+bizList.forEach((biz, i) => {
+    if (biz && idList[i]) {
+        bizMap[biz] = idList[i];
     }
 });
 
 function searchId() {
-    const rawInput = document.getElementById('bizInput').value.trim();
+    const input = document.getElementById('bizInput').value.trim();
     const resultDiv = document.getElementById('result');
 
-    if (!rawInput) {
-        resultDiv.innerHTML = `<span style="color:#ff4d4f;">스토어ID를 입력해주세요.</span>`;
+    if (!input) {
+        resultDiv.innerHTML = `<span style="color:#ff4d4f;">도메인정보를 입력해주세요.</span>`;
         return;
     }
 
-    const cleanInput = rawInput.replace(/[^0-9]/g, "");
-
-    if (bizMap[cleanInput]) {
+    if (bizMap[input]) {
         resultDiv.innerHTML = `
             조회된 톡채널 ID:<br>
             <span style="font-size:24px; color:#1890ff;">
-                ${bizMap[cleanInput]}
+                ${bizMap[input]}
             </span>
         `;
     } else {
-        resultDiv.innerHTML = `<span style="color:#ff4d4f;">등록되지 않은 스토어ID입니다.</span>`;
+        resultDiv.innerHTML = `<span style="color:#ff4d4f;">등록되지 않은 도메인정보입니다.</span>`;
     }
 }
 </script>
+
 
 
 
